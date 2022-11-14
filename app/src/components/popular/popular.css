@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1024px;
+    gap: 30px;
+    z-index: 1;
+}
+
+.display-image {
+    width: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 10px;
+    height: 250px;
+}
+
+.title {
+    position: absolute;
+    bottom: 40px;
+    color: white;
+    margin-left: 5px;
+}

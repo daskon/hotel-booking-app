@@ -1,0 +1,45 @@
+.nav {
+    height: 50px;
+    background-color: cadetblue;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1024px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-icon {
+    color: white;
+}
+
+.nav-icon.active {
+    border: 1px solid rgb(236, 230, 230);
+    padding: 7px;
+    border-radius: 30px;
+}
+
+.logo {
+    font-weight: 800;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: white;
+}
+
+.user-icon {
+    cursor: pointer;
+}
