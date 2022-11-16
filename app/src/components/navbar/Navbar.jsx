@@ -13,8 +13,8 @@ const Navbar = () => {
                <Link to="/" className='logo-link'>Netbooking</Link>
             </span>
             <div className='nav-links'>
-                <Link to="/hotels"><FontAwesomeIcon icon={faHotel} className='nav-icon active' /></Link>
-                <Link to="/hotels"><FontAwesomeIcon icon={faPhone} className='nav-icon' /></Link>
+                <Link to="/"><FontAwesomeIcon icon={faHotel} className='nav-icon active' /></Link>
+                <Link to="/"><FontAwesomeIcon icon={faPhone} className='nav-icon' /></Link>
             </div>
             <div className='nav-items'>
                 <FontAwesomeIcon icon={faUser} className='user-icon' />
