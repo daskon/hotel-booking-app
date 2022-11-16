@@ -5,3 +5,14 @@
     align-items: center;
     gap: 30px;
 }
+
+.home-container>h2 {
+    font-size: 14px;
+    color: rgb(64, 200, 155);
+}
+
+.home-footer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
