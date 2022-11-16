@@ -15,8 +15,10 @@ const Home = () => {
             <Popular />
             <h2>Browse by property type</h2>
             <Property />
-            <Subscribe />
-            <Footer />
+            <div className="home-footer">
+              <Subscribe />
+              <Footer />
+            </div>
         </div>
     </div>
   )
