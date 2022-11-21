@@ -5,11 +5,13 @@ import authEndpoint from './routes/auth.js'
 import userEndpoint from './routes/users.js'
 import hotelEndpoint from './routes/hotels.js'
 import roomEndpoint from './routes/rooms.js'
+import cookieParser from 'cookie-parser';
 
 const app = express();
 dotenv.config();
 
 app.use(express.json());
+app.use(cookieParser());
 
 const connect = async () => {
     try {
@@ -26,7 +28,7 @@ app.use('/api/users', userEndpoint);
 app.use('/api/hotels', hotelEndpoint);
 app.use('/api/rooms', roomEndpoint);
 
-//handler for all the routes erros
+//central point to handle all routes errors
 app.use((err,req,res,next)=>{
     let errStatus = req.status || 500;
     let errMessage = err.message || "Error has occurred";
@@ -35,7 +37,6 @@ app.use((err,req,res,next)=>{
         status: errStatus,
         message: errMessage,
         stack: err.stack
-
     });
 })
 
