@@ -53,3 +53,16 @@ export const getAllHotels = async(req,res, next) => {
         next(err);
     }
 }
+
+export const getCityCount = async(req,res, next) => {
+    const cities = req.query.cities.split(',');
+    try {
+        const result = await Promise.all(cities.map(city=>{
+            return Hotels.countDocuments({city: city});
+        }));
+        res.status(200).json(result);
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+}
