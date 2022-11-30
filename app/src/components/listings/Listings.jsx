@@ -1,34 +1,30 @@
 import { faBed, faHotTubPerson, faMugHot, faWifi } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './listings.css'
 
-const Listings = () => {
-
-    const navigate = useNavigate();
-
-    const handleButton = () => {
-        navigate('/hotel/2');
-    }
+const Listings = ({item}) => {
   return (
     <div className='lists-container'>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK44jnSWpsAGiIlp9DuXPyNluhiRoB5YEREMfv7ZqHAtR6aDyaDICSqqc60sfu6iwlWqU&usqp=CAU" alt="" className="lists-image" />
+        <img src={item.photos[0] ? item.photos[0] : `https://via.placeholder.com/150`} alt="" className="lists-image" />
         <div className="lists-info">
             <div className="lists-heading">
-                <h3 className="lists-title">Beach side hotel</h3>
-                <span className="lists-rating">5.6</span>
+                <h3 className="lists-title">{item.name}</h3>
+                {item.rating && <span className="lists-rating">{item.rating}</span>}
             </div>
             <span className="lists-promotion">
                 15% off for X-mass
             </span>
             <span className="lists-distance">
-                12km from Kandy
+                {item.address}
             </span>
             <div className='lists-moreinfo'>
-              <span className="lists-price">Rs 2,000</span>
+              <span className="lists-price">Rs {item.cheapest_price}</span>
             </div>
-            <button className="lists-available" onClick={handleButton}>See Availability</button>
+            <Link to={`/hotel/${item._id}`}>
+            <button className="lists-available">See Availability</button>
+            </Link>
         </div>
         <div className="lists-features">
             <span className="lists-feature">

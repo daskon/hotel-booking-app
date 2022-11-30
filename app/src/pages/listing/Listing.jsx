@@ -4,6 +4,7 @@ import {format} from 'date-fns'
 import { DateRange } from 'react-date-range';
 import './listing.css'
 import Listings from '../../components/listings/Listings';
+import useFetch from '../../hooks/useFetch';
 
 const Listing = () => {
 
@@ -12,7 +13,14 @@ const Listing = () => {
   const [date, setDate] = useState(location.state.date);
   const [options, setOption] = useState(location.state.options);
   const [toggleDatePick, setToggleDatePick] = useState(false);
+  const [min, setMin] = useState(undefined);
+  const [max, setMax] = useState(undefined);
 
+  const {loading, data, error, reFetch} = useFetch(`/hotels/find?city=${destination}&min=${min || 0}&max=${max || 9999}`);
+
+  const handleFilter = () => {
+    reFetch();
+  }
   return (
     <div className='search-container'>
       <div className="search-wrapper">
@@ -44,13 +52,15 @@ const Listing = () => {
                   <span className="lsOptionText">
                     Min price <small>per night</small>
                   </span>
-                  <input type="number" className="input-options" />
+                  <input type="number" className="input-options"
+                   onChange={e=>setMin(e.target.value)}/>
                 </div>
                 <div className="option-item">
                   <span className="lsOptionText">
                     Max price <small>per night</small>
                   </span>
-                  <input type="number" className="input-options" />
+                  <input type="number" className="input-options"
+                    onChange={e=>setMax(e.target.value)}/>
                 </div>
                 <div className="option-item">
                   <span className="lsOptionText">Adult</span>
@@ -79,18 +89,20 @@ const Listing = () => {
                     placeholder={options.room}
                   />
                 </div>
-                <button style={{borderRadius: '15px'}}>Filter</button>
+                <button style={{borderRadius: '15px'}}
+                  onClick={handleFilter}>Filter</button>
               </div>
            </div>
         </div>
         <div className="search-result">
             <div className="filter-records">
-              <Listings />
-              <Listings />
-              <Listings />
-              <Listings />
-              <Listings />
-              <Listings />
+              {loading ? "Loading Result...":
+              <>
+              {data.map(item=>(
+                 <Listings key={item._id} item={item} />
+              ))}
+              </>
+              }
             </div>
         </div>
       </div>
