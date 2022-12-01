@@ -34,6 +34,13 @@ const Hotel = () => {
   }
 
   const {date} = useContext(SearchContext);
+  const MILLISECONDS_DAY = 1000 * 60 * 60 * 24;
+  const dateDifference = (startDate,endDate) => {
+    const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(timeDiff / MILLISECONDS_DAY);
+    return diffDays;
+  }
+  const daysCount = dateDifference(date[0].startDate, date[0].endDate);
 
   return (
     <div>
@@ -52,7 +59,7 @@ const Hotel = () => {
                   onClick={()=>handleMove("L")}
                 />
             <div className="slider-wrapper">
-              <img src={data.photos[0] ? data.photos[0] : `https://via.placeholder.com/500`} alt="" className="gallery-image" />
+              <img src={data.photos[imgId] ? data.photos[imgId] : `https://via.placeholder.com/500`} alt="" className="gallery-image" />
             </div>
               <FontAwesomeIcon
                 icon={faCircleArrowRight}
@@ -93,13 +100,13 @@ const Hotel = () => {
                 </p>
               </div>
               <div className="hotel-details-price">
-                <h2>Perfect for a 9-night stay!</h2>
+                <h2>Perfect for a {daysCount}-night stay!</h2>
                 <span>
                   Located in the real heart of Krakow, this property has an
                   excellent location score of 9.8!
                 </span>
                 <h2>
-                  <b>Rs {data.cheapest_price}</b> (9 nights)
+                  <b>Rs {data.cheapest_price * daysCount}</b> ({daysCount} nights)
                 </h2>
                 <button className='hotel-reserve'>Reserve or Book Now!</button>
               </div>
