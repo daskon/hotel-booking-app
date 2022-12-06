@@ -2,9 +2,11 @@ import { faCircleXmark } from '@fortawesome/free-regular-svg-icons'
 import { faCircleArrowLeft, faCircleArrowRight, faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useContext, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Footer from '../../components/footer/Footer'
+import Reserve from '../../components/reserve/Reserve'
 import Subscribe from '../../components/subscribe/Subscribe'
+import { AuthContext } from '../../context/AuthContext'
 import { SearchContext } from '../../context/SearchContext'
 import useFetch from '../../hooks/useFetch'
 import './hotel.css'
@@ -16,7 +18,10 @@ const Hotel = () => {
   const id = path.split('/')[2];
   const [imgId, setImgId] = useState(0);
   const [openSlider, setOpenSlider] = useState(false);
+  const [openBooking, setOpenBooking] = useState(false);
+  const [openModel, setOpenModel] = useState(false);
   const {loading, data, error} = useFetch(`/hotels/find/${id}`);
+  const navigate = useNavigate();
 
   const handleSlider = (id) => {
     setImgId(id);
@@ -33,14 +38,25 @@ const Hotel = () => {
     setImgId(newDirection);
   }
 
-  const {date} = useContext(SearchContext);
+  const {date, options} = useContext(SearchContext);
+
   const MILLISECONDS_DAY = 1000 * 60 * 60 * 24;
   const dateDifference = (startDate,endDate) => {
-    const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+    const timeDiff = Math.abs(endDate?.getTime() - startDate?.getTime());
     const diffDays = Math.ceil(timeDiff / MILLISECONDS_DAY);
     return diffDays;
   }
-  const daysCount = dateDifference(date[0].startDate, date[0].endDate);
+  const daysCount = dateDifference(date[0]?.startDate, date[0]?.endDate);
+
+  const {user} = useContext(AuthContext);
+
+  const hanldeReserve = () => {
+    if(user){
+      setOpenBooking(true);
+    } else {
+      navigate('/login');
+    }
+  }
 
   return (
     <div>
@@ -69,7 +85,7 @@ const Hotel = () => {
           </div>
         }
         <div className="hotel-wrapper">
-            <button className="book-now">Reserve or Book Now!</button>
+            <button className="book-now" onClick={hanldeReserve}>Reserve or Book Now!</button>
             <h1 className="hotel-title">{data.name}</h1>
             <div className="hotel-address">
               <FontAwesomeIcon icon={faLocationDot} />
@@ -100,24 +116,24 @@ const Hotel = () => {
                 </p>
               </div>
               <div className="hotel-details-price">
-                <h2>Perfect for a {daysCount}-night stay!</h2>
+                <h2>Perfect for a {daysCount || 0}-night stay!</h2>
                 <span>
                   Located in the real heart of Krakow, this property has an
                   excellent location score of 9.8!
                 </span>
                 <h2>
-                  <b>Rs {data.cheapest_price * daysCount}</b> ({daysCount} nights)
+                  <b>Rs {data.cheapest_price * daysCount * options.room || data.cheapest_price}</b> ({daysCount || 0} nights)
                 </h2>
-                <button className='hotel-reserve'>Reserve or Book Now!</button>
+                <button className='hotel-reserve' onClick={hanldeReserve}>Reserve or Book Now!</button>
               </div>
             </div>
             <div className='hotel-footer'>
               <Subscribe />
               <Footer />
             </div>
-
         </div>
       </div>)}
+      {openBooking && <Reserve setOpenModel={setOpenBooking} hotelid={id} />}
     </div>
   )
 }

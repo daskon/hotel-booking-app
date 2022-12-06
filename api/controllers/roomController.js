@@ -69,3 +69,31 @@ export const getAllRooms = async(req,res, next) => {
         next(err);
     }
 }
+
+export const getHotelRooms = async (req, res, next) => {
+    try{
+        const hotel = await Hotels.findById(req.params.id);
+        const list = await Promise.all(hotel.room_id.map((room)=>{
+            return Room.findById(room);
+        }));
+        return res.status(200).json(list);
+    } catch(err){
+        next(err);
+    }
+}
+
+export const updateAvailableRooms = async (req, res, next) => {
+    try {
+        await Room.updateOne(
+            {"room_numbers._id":req.params.id},
+            {
+                $push: {
+                    "room_numbers.$.unavailable_on": req.body.dates
+                }
+            }
+        );
+        res.status(200).json('Room Availabilities has been updated');
+    } catch (err) {
+        next(err);
+    }
+}

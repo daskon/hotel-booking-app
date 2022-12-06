@@ -1,5 +1,5 @@
 import express from 'express';
-import { createRoom, deleteRoom, getAllRooms, getRoom, updateRoom } from '../controllers/roomController.js';
+import { createRoom, deleteRoom, getAllRooms, getRoom, updateAvailableRooms, updateRoom } from '../controllers/roomController.js';
 import { verifyAdmin } from '../utils/verifyToken.js';
 
 const router = express.Router();
@@ -18,5 +18,8 @@ router.get('/find/:id', getRoom);
 
 //find all room information
 router.get('/find', getAllRooms);
+
+//find available rooms
+router.put('/availability/:id', updateAvailableRooms);
 
 export default router
