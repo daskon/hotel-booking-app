@@ -1,0 +1,18 @@
+.dashboard{
+    display: flex;
+
+    .db-content{
+        flex: 7;
+
+        .db-widgets{
+            display: flex;
+            padding: 10px;
+            gap: 20px;
+        }
+        .chart-container{
+            display: flex;
+            padding: 10px;
+            gap: 20px;
+        }
+    }
+}

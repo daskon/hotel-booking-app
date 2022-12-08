@@ -1,0 +1,41 @@
+.widgets{
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    padding: 12px;
+    -webkit-box-shadow: -2px 1px 11px -3px rgba(0,0,0,0.31);
+    -moz-box-shadow: -2px 1px 11px -3px rgba(0,0,0,0.31);
+    box-shadow: -2px 1px 11px -3px rgba(0,0,0,0.31);
+    border-radius: 10px;
+    height: 120px;
+
+    .widget-left{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .widget-title{
+            font-weight: 600;
+            color: #97cec2;
+        }
+
+        .widget-count{
+            font-size: 35px;
+            color: rgb(61, 191, 148);
+        }
+
+        .widget-view{
+            width: max-content;
+            font-size: 13px;
+            border-bottom: 1px solid rgb(29, 189, 170);
+            color: #19a475;
+            cursor: pointer;
+        }
+    }
+
+    .widget-right{
+        .widget-icon{
+            align-self: flex-end;
+        }
+    }
+}

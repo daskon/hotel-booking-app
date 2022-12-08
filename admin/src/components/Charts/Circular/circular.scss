@@ -1,0 +1,33 @@
+.circular{
+    flex: 3;
+    -webkit-box-shadow: -2px 1px 11px -3px rgba(0,0,0,0.31);
+    -moz-box-shadow: -2px 1px 11px -3px rgba(0,0,0,0.31);
+    box-shadow: -2px 1px 11px -3px rgba(0,0,0,0.31);
+    border-radius: 10px;
+    padding: 10px;
+
+    .circular-top{
+        .circular-title{
+            font-size: 18px;
+            color: #97cec2;
+        }
+    }
+    .circular-bottom{
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        height: 150px;
+
+        .circular-chart{
+            width: 150px;
+            height: 100px;
+            gap: 10px;
+
+            .circular-total{
+                margin-top: 10px;
+                padding: 6px;
+            }
+        }
+    }
+
+}
